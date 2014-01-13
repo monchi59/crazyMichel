@@ -33,6 +33,7 @@ int MyWindow::handle(int e) {
                     break;
                     
                 case 107://K
+                    crazyContainer->pulseThrust(6800);
                     /*crazyContainer->addToDoList(new AsyncState(Thrust,10000,100));
                     crazyContainer->addToDoList(new AsyncState(Thrust,0,200));
                     crazyContainer->addToDoList(new AsyncState(Pitch,12.5,100));

@@ -226,20 +226,20 @@ vector<AsyncState>* CrazyContainer::getToDoList() const {
 void CrazyContainer::setToDoList(vector<AsyncState>* toDoList) {
     this->toDoList = toDoList;
 }
-
 void CrazyContainer::nloop() {
     int i =0;
-    //ofstream out("out.txt");
-    //std::clock_t c_start = std::clock();
+    ofstream out("out.txt");
+    //clock_t c_start = clock();
+    auto t_start = chrono::high_resolution_clock::now();
     while (connected && cflieCopter->cycle()) {
         if(keepYaw&&(abs(cflieCopter->yaw()-yaw)>5)){
             cflieCopter->setYaw(yaw);
         }
-        //std::clock_t c_end = std::clock();
-        //auto t_end = std::chrono::high_resolution_clock::now();
-        
+        //clock_t c_end = clock();
+        auto t_end = chrono::high_resolution_clock::now();
+        auto elapsed = t_end - t_start;
+        out<<elapsed.count()<<" "<<cflieCopter->accX()<<" "<<cflieCopter->accY()<<endl;
         if(i++%100==0){
-            //cout<<i<<" "<<cflieCopter->accZ()<<";"<<endl;
             i=1;
             FLContainer::pitch->value(cflieCopter->pitch());
             FLContainer::yaw->value(cflieCopter->yaw());
