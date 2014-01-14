@@ -33,7 +33,8 @@ int MyWindow::handle(int e) {
                     break;
                     
                 case 107://K
-                    crazyContainer->pulseThrust(6800);
+                    //crazyContainer->pulseThrust(6835);
+                    crazyContainer->setOscilating(!crazyContainer->isOscilating());
                     /*crazyContainer->addToDoList(new AsyncState(Thrust,10000,100));
                     crazyContainer->addToDoList(new AsyncState(Thrust,0,200));
                     crazyContainer->addToDoList(new AsyncState(Pitch,12.5,100));
@@ -72,20 +73,22 @@ int MyWindow::handle(int e) {
                     crazyContainer->pulseThrust(15000);
                     break;
                 case 102://F
-                    crazyContainer->setOffsetThrust(crazyContainer->getOffsetThrust()+300);
-                    crazyContainer->backThrust();
+                    crazyContainer->setOscilThurst(crazyContainer->getOscilThurst()+100);
+                    //crazyContainer->setOffsetThrust(crazyContainer->getOffsetThrust()+300);
+                    //crazyContainer->backThrust();
                     break;
                 case 115://S
-                    crazyContainer->setOffsetThrust(crazyContainer->getOffsetThrust()-300);
-                    crazyContainer->backThrust();
+                    //crazyContainer->setOffsetThrust(crazyContainer->getOffsetThrust()-300);
+                    crazyContainer->setOscilThurst(crazyContainer->getOscilThurst()-100);
+                    //crazyContainer->backThrust();
                     break;
                 
                 case 104://H
-                    crazyContainer->setRoll(180);
+                    //crazyContainer->setRoll(180);
                     break;
                     
                 case 100://D
-                    crazyContainer->pulseThrust(-7500);
+                    crazyContainer->setThrust(crazyContainer->getOffsetThrust()+10000);
                     break;
                 case 99://C
                     crazyContainer->pulseThrust(-25000);
@@ -135,8 +138,8 @@ int MyWindow::handle(int e) {
                     crazyContainer->backThrust();
                     break;
                 case 100://D
-                    crazyContainer->addToDoList(new AsyncState(Thrust,0,100));
-                    crazyContainer->pulseThrust(10000);
+                   // crazyContainer->addToDoList(new AsyncState(Thrust,0,100));
+                   // crazyContainer->pulseThrust(10000);
                     break;
                 case 65362://up
                     //crazyContainer->addToDoList(new AsyncState(Pitch,0,50));

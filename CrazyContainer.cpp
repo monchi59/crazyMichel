@@ -26,8 +26,9 @@
 using namespace std;
 CrazyContainer::CrazyContainer() {
     connected = false;
-    crRadio = new CCrazyRadio("radio://0/10/250K");
+    crRadio = new CCrazyRadio("radio://0/10/1M");
     toDoList = new vector<AsyncState>();
+    oscilThurst = 0;
 }
 
 CrazyContainer::~CrazyContainer() {
@@ -130,15 +131,18 @@ CCrazyflie* CrazyContainer::getCflieCopter() const {
         return val+offsetRoll;
     }
     double CrazyContainer::pulseThrust(double thrust){
+        setOscilating(false);
         setThrust(thrust+offsetThrust);
         return thrust+offsetThrust;
     }
     
     void CrazyContainer::backThrust(){
+        setOscilating(false);
         setThrust(offsetThrust);
     }
     
     double CrazyContainer::stopThrust(){
+        setOscilating(false);
         setThrust(0);
         return 0;
     } 
@@ -228,9 +232,11 @@ void CrazyContainer::setToDoList(vector<AsyncState>* toDoList) {
 }
 void CrazyContainer::nloop() {
     int i =0;
-    ofstream out("out.txt");
+    ofstream out("out.dat");
     //clock_t c_start = clock();
+    double last = 0;
     auto t_start = chrono::high_resolution_clock::now();
+    auto t_last = chrono::high_resolution_clock::now();
     while (connected && cflieCopter->cycle()) {
         if(keepYaw&&(abs(cflieCopter->yaw()-yaw)>5)){
             cflieCopter->setYaw(yaw);
@@ -239,13 +245,30 @@ void CrazyContainer::nloop() {
         auto t_end = chrono::high_resolution_clock::now();
         auto elapsed = t_end - t_start;
         out<<elapsed.count()<<" "<<cflieCopter->accX()<<" "<<cflieCopter->accY()<<endl;
+        
+        if(cflieCopter->accX()!=last){
+            chrono::duration<double> elapsed2 = chrono::duration_cast<chrono::duration<double>>(t_end - t_last);
+            last = cflieCopter->accX();
+            //cout<<1/elapsed2.count()<<" "<<last<<endl;
+            t_last = t_end;
+        }
+        //out<<elapsed.count()<<" "<<cflieCopter->batteryLevel()<<" "<<endl;
         if(i++%100==0){
             i=1;
             FLContainer::pitch->value(cflieCopter->pitch());
             FLContainer::yaw->value(cflieCopter->yaw());
             FLContainer::roll->value(cflieCopter->roll());
-            
+            if(oscilating){
+                if(up){
+                    setThrust(offsetThrust+7200+oscilThurst);
+                }else{
+                    setThrust(offsetThrust+5800+oscilThurst);
+                }
+                up = !up;
+                cout<<up<<endl;
+            }
         }
+        
         if(toDoList->size()>0){
             for (int i=0;i<toDoList->size();i++)
             {
@@ -271,6 +294,9 @@ void CrazyContainer::nloop() {
                     todo->DecreaseTicks();
                 }
             }
+        }
+        if(cflieCopter->batteryLevel()<=3.1){
+            cout<<"Warning low battery !"<<endl;
         }
     }
     connected = false;

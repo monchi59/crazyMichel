@@ -18,6 +18,7 @@
 #include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Dial.H>
 #include "FLContainer.h"
+#include "Integrator.h"
 #include "MyWindow.h"
 #include <thread>
 
@@ -85,6 +86,11 @@ Fl_Value_Slider * FLContainer::offsetRoll;
  */ 
 
 int main(int argc, char** argv) {
+    Integrator* test = new Integrator();
+    cout<<test->readFile("acc.dat")<<endl;
+    test->integrate();
+    test->save();
+    
     CrazyContainer *container = new CrazyContainer();
     container->loadXML();
     MyWindow *window = new MyWindow();
