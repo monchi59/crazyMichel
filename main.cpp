@@ -46,14 +46,20 @@ void stop(Fl_Widget *, void * container) {
 }
 void save(Fl_Widget *, void * container) {
     cout<<"save"<<endl;
-    
-    ((CrazyContainer*)container)->saveXML();
+     Integrator* test = new Integrator();
+    cout<<test->readFile2("acccfc.dat")<<endl;
+    test->integrate();
+    test->save();
+    //((CrazyContainer*)container)->saveXML();
     
 }
 void load(Fl_Widget *, void * container) {
     cout<<"load"<<endl;
-    
-    ((CrazyContainer*)container)->loadXML();
+    Integrator* test = new Integrator();
+    cout<<test->readFile("acc.dat")<<endl;
+    test->integrate();
+    test->save();
+    //((CrazyContainer*)container)->loadXML();
     
 }
 void killnstop(Fl_Widget *, void * container) {
@@ -86,10 +92,7 @@ Fl_Value_Slider * FLContainer::offsetRoll;
  */ 
 
 int main(int argc, char** argv) {
-    Integrator* test = new Integrator();
-    cout<<test->readFile("acc.dat")<<endl;
-    test->integrate();
-    test->save();
+    
     
     CrazyContainer *container = new CrazyContainer();
     container->loadXML();

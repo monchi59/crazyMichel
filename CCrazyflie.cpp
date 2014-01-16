@@ -34,7 +34,8 @@ CCrazyflie::CCrazyflie(CCrazyRadio *crRadio) {
   // Review these values
   m_fMaxAbsRoll = 45.0f;
   m_fMaxAbsPitch = m_fMaxAbsRoll;
-  m_fMaxYaw = 2 * M_PI;
+  //m_fMaxYaw = 2 * M_PI;
+  m_fMaxYaw = 180.0;
   m_nMaxThrust = 60000;
   m_nMinThrust = 0;//15000;
 
@@ -213,7 +214,7 @@ float CCrazyflie::pitch() {
 }
 
 void CCrazyflie::setYaw(float fYaw) {
-  m_fYaw = fYaw;
+ /* m_fYaw = fYaw;
   
   if(m_fYaw < 0) {
     m_fYaw += 2 * M_PI - m_fYaw;
@@ -221,6 +222,11 @@ void CCrazyflie::setYaw(float fYaw) {
   
   while(m_fYaw > m_fMaxYaw) {
     m_fYaw -= m_fMaxYaw;
+  }*/
+  m_fYaw = fYaw;
+
+  if(fabs(m_fYaw) > m_fMaxYaw){
+      m_fYaw = copysign(m_fMaxYaw, m_fYaw);
   }
 }
 
@@ -241,23 +247,23 @@ bool CCrazyflie::isInitialized() {
 
 bool CCrazyflie::startLogging() {
   // Register the desired sensor readings
-  this->enableStabilizerLogging();
-  this->enableGyroscopeLogging();
+  //this->enableStabilizerLogging();
+  //this->enableGyroscopeLogging();
   this->enableAccelerometerLogging();
   this->enableBatteryLogging();
-  this->enableMagnetometerLogging();
-  this->enableAltimeterLogging();
+  //this->enableMagnetometerLogging();
+  //this->enableAltimeterLogging();
   
   return true;
 }
 
 bool CCrazyflie::stopLogging() {
-  this->disableStabilizerLogging();
-  this->disableGyroscopeLogging();
+  //this->disableStabilizerLogging();
+  //this->disableGyroscopeLogging();
   this->disableAccelerometerLogging();
   this->disableBatteryLogging();
-  this->disableMagnetometerLogging();
-  this->disableAltimeterLogging();
+  //this->disableMagnetometerLogging();
+  //this->disableAltimeterLogging();
   
   return true;
 }
@@ -308,7 +314,7 @@ float CCrazyflie::gyroZ() {
 }
 
 void CCrazyflie::enableAccelerometerLogging() {
-  m_tocLogs->registerLoggingBlock("accelerometer", 1000);
+  m_tocLogs->registerLoggingBlock("accelerometer", 10000);
 
   m_tocLogs->startLogging("acc.x", "accelerometer");
   m_tocLogs->startLogging("acc.y", "accelerometer");

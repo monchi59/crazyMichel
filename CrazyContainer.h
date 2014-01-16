@@ -81,6 +81,28 @@ public:
 
     void setKeepYaw(bool keepYaw);
 
+    bool isOscilating() const {
+        return oscilating;
+    }
+
+    void setOscilating(bool oscilating) {
+        this->oscilating = oscilating;
+    }
+    bool isUp() const {
+        return up;
+    }
+
+    void setUp(bool up) {
+        this->up = up;
+    }
+    int getOscilThurst() const {
+        return oscilThurst;
+    }
+
+    void setOscilThurst(int oscilThurst) {
+        this->oscilThurst = oscilThurst;
+    }
+
 private:
     thread* loopthread;
     CCrazyRadio *crRadio;
@@ -96,6 +118,11 @@ private:
     double highThrust;
     vector<AsyncState> *toDoList;
     bool keepYaw;
+    
+    bool oscilating;
+    bool up;
+    
+    int oscilThurst;
 };
 
 #endif	/* CRAZYCONTAINER_H */

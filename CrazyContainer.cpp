@@ -249,9 +249,10 @@ void CrazyContainer::nloop() {
         if(cflieCopter->accX()!=last){
             chrono::duration<double> elapsed2 = chrono::duration_cast<chrono::duration<double>>(t_end - t_last);
             last = cflieCopter->accX();
-            //cout<<1/elapsed2.count()<<" "<<last<<endl;
+            cout<<1/elapsed2.count()<<" "<<last<<endl;
             t_last = t_end;
         }
+        
         //out<<elapsed.count()<<" "<<cflieCopter->batteryLevel()<<" "<<endl;
         if(i++%100==0){
             i=1;

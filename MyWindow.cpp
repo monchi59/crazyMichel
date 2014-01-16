@@ -128,6 +128,9 @@ int MyWindow::handle(int e) {
                     crazyContainer->setYawVar(yaw);
                     crazyContainer->setYaw(yaw);
                     break;
+                case 249:
+                    crazyContainer->setYaw(0);
+                    break;
             }
             break;
         case FL_KEYUP:
