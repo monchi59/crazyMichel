@@ -16,7 +16,7 @@ using namespace std;
 
 
 #define PM 4
-#define N 2
+//#define N 2
 
 class Integrator {
 public:

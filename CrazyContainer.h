@@ -103,6 +103,14 @@ public:
         this->oscilThurst = oscilThurst;
     }
 
+    bool isPlotting() const {
+        return plotting;
+    }
+
+    void setPlotting(bool plotting) {
+        this->plotting = plotting;
+    }
+
 private:
     thread* loopthread;
     CCrazyRadio *crRadio;
@@ -121,6 +129,8 @@ private:
     
     bool oscilating;
     bool up;
+    
+    bool plotting;
     
     int oscilThurst;
 };

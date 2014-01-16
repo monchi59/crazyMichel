@@ -46,10 +46,12 @@ void stop(Fl_Widget *, void * container) {
 }
 void save(Fl_Widget *, void * container) {
     cout<<"save"<<endl;
-     Integrator* test = new Integrator();
+     /*Integrator* test = new Integrator();
     cout<<test->readFile2("acccfc.dat")<<endl;
     test->integrate();
-    test->save();
+    test->save();*/
+    ((CrazyContainer*)container)->setPlotting(!((CrazyContainer*)container)->isPlotting());
+    cout<< ((CrazyContainer*)container)->isPlotting() <<endl;
     //((CrazyContainer*)container)->saveXML();
     
 }
@@ -140,7 +142,7 @@ int main(int argc, char** argv) {
      Fl_Button *b5 = new Fl_Button(400, 20, 80, 25, "Kill n' Exit");
     b5->callback(killnstop,(void *)container);
     
-    Fl_Button *bsave = new Fl_Button(500, 20, 80, 25, "Save");
+    Fl_Button *bsave = new Fl_Button(500, 20, 80, 25, "Plot");
     bsave->callback(save,(void *)container);
     
     Fl_Button *bload = new Fl_Button(500, 50, 80, 25, "Load");
