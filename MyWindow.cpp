@@ -34,27 +34,14 @@ int MyWindow::handle(int e) {
                     
                 case 107://K
                     //crazyContainer->pulseThrust(6835);
-                    crazyContainer->setOscilating(!crazyContainer->isOscilating());
-                    /*crazyContainer->addToDoList(new AsyncState(Thrust,10000,100));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,0,200));
-                    crazyContainer->addToDoList(new AsyncState(Pitch,12.5,100));
-                    crazyContainer->addToDoList(new AsyncState(Pitch,0,200));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,7000,500));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,0,600));
-                    crazyContainer->addToDoList(new AsyncState(Pitch,-12.5,500));
-                    crazyContainer->addToDoList(new AsyncState(Pitch,0,600));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,7000,1000));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,0,1100));
-                    crazyContainer->addToDoList(new AsyncState(Pitch,-12.5,1200));
-                    crazyContainer->addToDoList(new AsyncState(Pitch,0,1300));
-                    crazyContainer->addToDoList(new AsyncState(Roll,-12.5,1500));
-                    crazyContainer->addToDoList(new AsyncState(Roll,0,1600));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,7000,1600));
-                    crazyContainer->addToDoList(new AsyncState(Thrust,0,1700));
-                    crazyContainer->addToDoList(new AsyncState(Roll,12.5,1700));
-                    crazyContainer->addToDoList(new AsyncState(Roll,0,1800));
-                    crazyContainer->addToDoList(new AsyncState(Roll,12.5,1900));
-                    crazyContainer->addToDoList(new AsyncState(Roll,0,2000));*/
+                    //crazyContainer->setOscilating(!crazyContainer->isOscilating());
+                    crazyContainer->setHovering(!crazyContainer->isHovering());
+                    break;
+                case 117://U (hover up)
+                    crazyContainer->setGivenCorrection(0.5);
+                    break;
+                case 106://J (hover down)
+                    crazyContainer->setGivenCorrection(-0.5);
                     break;
                 case 65362://up
                     crazyContainer->pulsePitch(12.5);
@@ -165,6 +152,9 @@ int MyWindow::handle(int e) {
                     //crazyContainer->pulsePitch(6.5);
                     crazyContainer->backPitch();
                     break;
+                case 117://U (hover up)
+                case 106://J (hover down)
+                    crazyContainer->setGivenCorrection(0);
             }
             cout<<"up : "<< Fl::event_key() <<endl;
             break;

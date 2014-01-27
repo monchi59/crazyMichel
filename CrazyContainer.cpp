@@ -28,6 +28,7 @@
 #include "gnuplot-iostream.h"
 #include "MartinsIntegrator.h"
 #include "Integrator.h"
+#include "PIDCorrector.h"
 
 using namespace std;
 
@@ -146,17 +147,20 @@ double CrazyContainer::pulseRoll(double val) {
 
 double CrazyContainer::pulseThrust(double thrust) {
     setOscilating(false);
+    setHovering(false);
     setThrust(thrust + offsetThrust);
     return thrust + offsetThrust;
 }
 
 void CrazyContainer::backThrust() {
     setOscilating(false);
+    setHovering(false);
     setThrust(offsetThrust);
 }
 
 double CrazyContainer::stopThrust() {
     setOscilating(false);
+    setHovering(false);
     setThrust(0);
     return 0;
 }
@@ -231,7 +235,7 @@ void CrazyContainer::setOffsetThrust(double offsetThrust) {
 void CrazyContainer::loadXML() {
     offsetPitch = 0.2;
     offsetRoll = 2.0;
-    offsetThrust = 39000;
+    offsetThrust = 39000;//41500;//39000
 }
 
 void CrazyContainer::saveXML() {
@@ -251,10 +255,13 @@ void CrazyContainer::setToDoList(vector<AsyncState>* toDoList) {
 
 void CrazyContainer::nloop() {
     MartinsIntegrator *integrator = new MartinsIntegrator();
+    PIDCorrector* corrector = new PIDCorrector();
     Gnuplot gp;
     list<pair<double, double> > plotAccX;
     list<pair<double, double> > plotAccY;
     list<pair<double, double> > plotAccZ;
+    
+    list<pair<double, double> > plotCAccZ;
 
     list<pair<double, double> > plotAccXm;
     list<pair<double, double> > plotAccYm;
@@ -277,14 +284,18 @@ void CrazyContainer::nloop() {
     int i = 0;
     int nbPoints = 0;
     int nbPointsPosition =0;
+    int nbZ = 0;
     double lastX = 0;
     double lastXm = 0;
     double lastY = 0;
     double lastYm = 0;
+    double corrected;
+    double lastZ = 0;
     
     ofstream out("out.dat");
     //clock_t c_start = clock();
     double last = 0;
+    double lastProx = 0;
     auto t_start = chrono::high_resolution_clock::now();
     auto t_last = chrono::high_resolution_clock::now();
     while (connected && cflieCopter->cycle()) {
@@ -301,12 +312,12 @@ void CrazyContainer::nloop() {
             last = cflieCopter->accX();
             //cout<<1/elapsed2.count()<<" "<<last<<endl;
             t_last = t_end;
-            if (plotting) {
+            if (plotting&&false) {
                 
 
 
                 integrator->integrate(cflieCopter->accX(), cflieCopter->accY(), elapsed.count());
-                out<<elapsed.count()<<" "<<integrator->x<<" "<<integrator->y<<endl;
+                //out<<elapsed.count()<<" "<<integrator->x<<" "<<integrator->y<<endl;
                 if (nbPoints++ % 10 == 0) {
                     plotAccX.push_back(std::make_pair(elapsed.count(), cflieCopter->accX()));
                     plotAccY.push_back(std::make_pair(elapsed.count(), cflieCopter->accY()));
@@ -387,6 +398,59 @@ void CrazyContainer::nloop() {
                 integrator->reset();
             }
         }
+        
+        if (cflieCopter->accZ() != lastZ) {
+            /*if(fabs(cflieCopter->pitch())<5&&fabs(cflieCopter->roll())<5){
+                double prox = cflieCopter->prox();
+                if(fabs(lastProx-prox)>5){//5
+                    lastProx = prox;
+                }
+                if(lastProx-prox>20){//4
+                    givenCorrection = 0.35;
+                }else if(lastProx-prox>15){//3
+                    givenCorrection = 0.25;
+                }else if(lastProx-prox>10){//2
+                    givenCorrection = 0.15;
+                }else if(lastProx-prox>5){//1
+                    givenCorrection = 0.10;
+                }else if(lastProx < prox){//<
+                    givenCorrection = -0.10;
+                }else{
+                    givenCorrection =0;
+                }
+            }*/
+            
+            lastZ = cflieCopter->accZ();
+            int correctionOffset = 14000;//15000
+            if(hovering){
+                corrected = corrector->PID(1,cflieCopter->accZ()-givenCorrection);
+            }
+            if(plotting){
+                nbZ++;
+                plotAccZ.push_back(std::make_pair(elapsed.count(), cflieCopter->accZ()));
+                plotCAccZ.push_back(std::make_pair(elapsed.count(), correctionOffset*corrected));
+                if(nbZ%100==0){
+                        gp << "set multiplot layout 2,1;plot" << gp.file1d(plotAccZ) << "with lines title 'Accelerometer z';plot " << gp.file1d(plotCAccZ) << "with lines title 'Corrector';"<<endl;
+                }
+                if(nbZ>500){
+                    plotAccZ.pop_front();
+                    plotCAccZ.pop_front();
+                }
+            }else if(!plotAccZ.empty()){
+                plotAccZ.clear();
+                plotCAccZ.clear();
+            }else if(hovering){
+                out<<elapsed.count()<<" "<<cflieCopter->accZ()<<" "<<corrected<<" "<<corrector->avg<<endl;
+            }
+                
+            
+            if(hovering){
+                setThrust(offsetThrust+correctionOffset*corrected);
+            }else{
+                //corrector->Old_R = 1;
+            }
+        }
+       // cout<<cflieCopter->prox()<<endl;
 
         //out<<elapsed.count()<<" "<<cflieCopter->batteryLevel()<<" "<<endl;
         if (i++ % 100 == 0) {

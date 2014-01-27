@@ -254,6 +254,8 @@ bool CCrazyflie::startLogging() {
   //this->enableMagnetometerLogging();
   //this->enableAltimeterLogging();
   
+  this->enableProxLogging();
+  
   return true;
 }
 
@@ -291,6 +293,12 @@ void CCrazyflie::enableStabilizerLogging() {
   m_tocLogs->startLogging("stabilizer.roll", "stabilizer");
   m_tocLogs->startLogging("stabilizer.pitch", "stabilizer");
   m_tocLogs->startLogging("stabilizer.yaw", "stabilizer");
+}
+
+void CCrazyflie::enableProxLogging() {
+  m_tocLogs->registerLoggingBlock("adc", 1000);
+  
+  m_tocLogs->startLogging("adc.vProx", "adc");
 }
 
 void CCrazyflie::enableGyroscopeLogging() {
@@ -410,6 +418,10 @@ float CCrazyflie::pressure() {
 }
 float CCrazyflie::temperature() {
   return this->sensorDoubleValue("alti.temperature");
+}
+
+float CCrazyflie::prox(){
+    return this->sensorDoubleValue("adc.vProx");
 }
 
 

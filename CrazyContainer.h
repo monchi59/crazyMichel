@@ -111,6 +111,22 @@ public:
         this->plotting = plotting;
     }
 
+    bool isHovering() const {
+        return hovering;
+    }
+
+    void setHovering(bool hovering) {
+        this->hovering = hovering;
+    }
+
+    double getGivenCorrection() const {
+        return givenCorrection;
+    }
+
+    void setGivenCorrection(double givenCorrection) {
+        this->givenCorrection = givenCorrection;
+    }
+
 private:
     thread* loopthread;
     CCrazyRadio *crRadio;
@@ -131,8 +147,10 @@ private:
     bool up;
     
     bool plotting;
-    
+    bool hovering;
     int oscilThurst;
+    
+    double givenCorrection;
 };
 
 #endif	/* CRAZYCONTAINER_H */
