@@ -317,7 +317,7 @@ void CrazyContainer::nloop() {
 
 
                 integrator->integrate(cflieCopter->accX(), cflieCopter->accY(), elapsed.count());
-                //out<<elapsed.count()<<" "<<integrator->x<<" "<<integrator->y<<endl;
+                out<<elapsed.count()<<" "<<integrator->x<<" "<<integrator->y<<endl;
                 if (nbPoints++ % 10 == 0) {
                     plotAccX.push_back(std::make_pair(elapsed.count(), cflieCopter->accX()));
                     plotAccY.push_back(std::make_pair(elapsed.count(), cflieCopter->accY()));
@@ -421,7 +421,7 @@ void CrazyContainer::nloop() {
             }*/
             
             lastZ = cflieCopter->accZ();
-            int correctionOffset = 14000;//15000
+            int correctionOffset = 1000;//15000
             if(hovering){
                 corrected = corrector->PID(1,cflieCopter->accZ()-givenCorrection);
             }
@@ -447,6 +447,7 @@ void CrazyContainer::nloop() {
             if(hovering){
                 setThrust(offsetThrust+correctionOffset*corrected);
             }else{
+                corrector->zeroing();
                 //corrector->Old_R = 1;
             }
         }
