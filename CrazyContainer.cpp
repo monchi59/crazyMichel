@@ -25,7 +25,6 @@
 #include <fstream>
 #include <chrono>
 #include <ctime>
-#include "gnuplot-iostream.h"
 #include "MartinsIntegrator.h"
 #include "Integrator.h"
 #include "PIDCorrector.h"
@@ -256,31 +255,7 @@ void CrazyContainer::setToDoList(vector<AsyncState>* toDoList) {
 void CrazyContainer::nloop() {
     MartinsIntegrator *integrator = new MartinsIntegrator();
     PIDCorrector* corrector = new PIDCorrector();
-    Gnuplot gp;
-    list<pair<double, double> > plotAccX;
-    list<pair<double, double> > plotAccY;
-    list<pair<double, double> > plotAccZ;
-    
-    list<pair<double, double> > plotCAccZ;
-
-    list<pair<double, double> > plotAccXm;
-    list<pair<double, double> > plotAccYm;
-
-    list<pair<double, double> > plotX;
-    list<pair<double, double> > plotY;
-
-    list<pair<double, double> > plotXm;
-    list<pair<double, double> > plotYm;
-
-    list<pair<double, double> > plotVX;
-    list<pair<double, double> > plotVY;
-
-    list<pair<double, double> > plotVXm;
-    list<pair<double, double> > plotVYm;
-    
-    plotY.push_back(std::make_pair(0, 0));
-    plotYm.push_back(std::make_pair(0, 0));
-     
+ 
     int i = 0;
     int nbPoints = 0;
     int nbPointsPosition =0;
@@ -313,25 +288,10 @@ void CrazyContainer::nloop() {
             //cout<<1/elapsed2.count()<<" "<<last<<endl;
             t_last = t_end;
             if (plotting&&false) {
-                
-
-
                 integrator->integrate(cflieCopter->accX(), cflieCopter->accY(), elapsed.count());
                 out<<elapsed.count()<<" "<<integrator->x<<" "<<integrator->y<<endl;
                 if (nbPoints++ % 10 == 0) {
-                    plotAccX.push_back(std::make_pair(elapsed.count(), cflieCopter->accX()));
-                    plotAccY.push_back(std::make_pair(elapsed.count(), cflieCopter->accY()));
-                    
-                    //plotAccZ.push_back(std::make_pair(elapsed.count(), cflieCopter->accZ()));
-                    
-                    plotAccXm.push_back(std::make_pair(elapsed.count(), integrator->ax1m));
-                    plotAccYm.push_back(std::make_pair(elapsed.count(), integrator->ay1m));
-
-                    plotVX.push_back(std::make_pair(elapsed.count(), integrator->vx1));
-                    plotVXm.push_back(std::make_pair(elapsed.count(), integrator->vx1m));
-                    plotVY.push_back(std::make_pair(elapsed.count(), integrator->vy1));
-                    plotVYm.push_back(std::make_pair(elapsed.count(), integrator->vy1m));
-
+                   
                     //plotX.push_back(std::make_pair(elapsed.count(),integrator->x1));
                     //plotXm.push_back(std::make_pair(elapsed.count(),integrator->x1m));
                     if(integrator->x1!=lastX|| integrator->y1 != lastY || integrator->x1m!=lastXm || integrator->y1m != lastYm){
@@ -339,62 +299,11 @@ void CrazyContainer::nloop() {
                         lastXm = integrator->x1m;
                         lastY = integrator->y1;
                         lastYm = integrator->y1m;
-                        
-                        plotY.push_back(std::make_pair(integrator->x1, integrator->y1));
-                        plotYm.push_back(std::make_pair(integrator->x1m, integrator->y1m));
+                   
                         nbPointsPosition++;
                     }
-
-
-
-
-                    gp << "set multiplot layout 3,2;set yrange [-1:1];set autoscale x; plot" << gp.file1d(plotAccX) << "with lines title 'Accelerometer x'," << gp.file1d(plotAccY) << " with lines title 'Accelerometer y';" <<
-                            "plot" << gp.file1d(plotAccXm) << "with lines title 'Accelerometer smoothed x'," << gp.file1d(plotAccYm) << " with lines title 'Accelerometer smoothed y';"
-                            << "set autoscale y;plot" << gp.file1d(plotVX) << "with lines title 'Speed x'," << gp.file1d(plotVY) << " with lines title 'Speed y';"
-                            << "plot" << gp.file1d(plotVXm) << "with lines title 'Speed smoothed x'," << gp.file1d(plotVYm) << " with lines title 'Speed smoothed y';"
-                            //<<"plot" << gp.file1d(plotX) << "with lines title 'Position x',"<< gp.file1d(plotY) <<" with lines title 'Position x/y';"
-                            //<<"plot" << gp.file1d(plotXm) << "with lines title 'Position smoothed x',"<< gp.file1d(plotYm) <<" with lines title 'Position smoothed x/y';"
-                            << "set yrange [-0.3:0.3];set xrange [-0.3:0.3];plot" << gp.file1d(plotY) << " with lines title 'Position x/y';"
-                            << "plot" << gp.file1d(plotYm) << " with lines title 'Position smoothed x/y';"
-                            //<<"set yrange [-10:10];plot" << gp.file1d(plotAccZ) <<  "with lines title 'Accelerometer z';"
-                            << endl;
-                    if (nbPoints > 1000) {
-                        
-                        plotAccX.pop_front();
-                        plotAccY.pop_front();
-                        //plotAccZ.pop_front();
-
-                        plotAccXm.pop_front();
-                        plotAccYm.pop_front();
-
-                        plotVX.pop_front();
-                        plotVXm.pop_front();
-                        plotVY.pop_front();
-                        plotVYm.pop_front();
-                    }
-                    if (nbPointsPosition > 1000) {
-                        plotX.pop_front();
-                        plotXm.pop_front();
-                        plotY.pop_front();
-                        plotYm.pop_front();
-                    }
                 }
-
-            }else if(!plotAccX.empty()){
-                plotAccX.clear();
-                plotAccY.clear();
-                plotAccXm.clear();
-                plotAccYm.clear();
-
-                plotVX.clear();
-                plotVXm.clear();
-                plotVY.clear();
-                plotVYm.clear();
-                plotAccY.clear();
-                //plotX.push_back(std::make_pair(elapsed.count(),integrator->x1));
-                //plotXm.push_back(std::make_pair(elapsed.count(),integrator->x1m));
-                plotY.clear();
-                plotYm.clear();
+            }else{
                 integrator->reset();
             }
         }
@@ -424,27 +333,7 @@ void CrazyContainer::nloop() {
             int correctionOffset = 1000;//15000
             if(hovering){
                 corrected = corrector->PID(1,cflieCopter->accZ()-givenCorrection);
-            }
-            if(plotting){
-                nbZ++;
-                plotAccZ.push_back(std::make_pair(elapsed.count(), cflieCopter->accZ()));
-                plotCAccZ.push_back(std::make_pair(elapsed.count(), correctionOffset*corrected));
-                if(nbZ%100==0){
-                        gp << "set multiplot layout 2,1;plot" << gp.file1d(plotAccZ) << "with lines title 'Accelerometer z';plot " << gp.file1d(plotCAccZ) << "with lines title 'Corrector';"<<endl;
-                }
-                if(nbZ>500){
-                    plotAccZ.pop_front();
-                    plotCAccZ.pop_front();
-                }
-            }else if(!plotAccZ.empty()){
-                plotAccZ.clear();
-                plotCAccZ.clear();
-            }else if(hovering){
                 out<<elapsed.count()<<" "<<cflieCopter->accZ()<<" "<<corrected<<" "<<corrector->avg<<endl;
-            }
-                
-            
-            if(hovering){
                 setThrust(offsetThrust+correctionOffset*corrected);
             }else{
                 corrector->zeroing();

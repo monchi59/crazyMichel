@@ -8,7 +8,7 @@ build/Debug/GNU-Linux-x86/main.o: main.cpp cflie/CCrazyflie.h \
  fltk-1.3.2/FL/Fl_Input.H fltk-1.3.2/FL/Fl_Input_.H \
  fltk-1.3.2/FL/fl_ask.H fltk-1.3.2/FL/Fl_Value_Slider.H \
  fltk-1.3.2/FL/Fl_Slider.H fltk-1.3.2/FL/Fl_Valuator.H \
- fltk-1.3.2/FL/Fl_Dial.H FLContainer.h MyWindow.h
+ fltk-1.3.2/FL/Fl_Dial.H FLContainer.h Integrator.h MyWindow.h
 
 cflie/CCrazyflie.h:
 
@@ -59,5 +59,7 @@ fltk-1.3.2/FL/Fl_Valuator.H:
 fltk-1.3.2/FL/Fl_Dial.H:
 
 FLContainer.h:
+
+Integrator.h:
 
 MyWindow.h:

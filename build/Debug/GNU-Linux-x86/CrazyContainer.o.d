@@ -9,7 +9,7 @@ build/Debug/GNU-Linux-x86/CrazyContainer.o: CrazyContainer.cpp \
  fltk-1.3.2/FL/Fl_Input.H fltk-1.3.2/FL/Fl_Input_.H \
  fltk-1.3.2/FL/fl_ask.H fltk-1.3.2/FL/Fl_Valuator.H FLContainer.h \
  fltk-1.3.2/FL/Fl_Value_Slider.H fltk-1.3.2/FL/Fl_Slider.H \
- fltk-1.3.2/FL/Fl_Dial.H
+ fltk-1.3.2/FL/Fl_Dial.H MartinsIntegrator.h Integrator.h PIDCorrector.h
 
 CrazyContainer.h:
 
@@ -60,3 +60,9 @@ fltk-1.3.2/FL/Fl_Value_Slider.H:
 fltk-1.3.2/FL/Fl_Slider.H:
 
 fltk-1.3.2/FL/Fl_Dial.H:
+
+MartinsIntegrator.h:
+
+Integrator.h:
+
+PIDCorrector.h:

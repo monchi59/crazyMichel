@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=crazyyyisen
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/crazyyyisen
+CND_ARTIFACT_NAME_Debug=crazymichel
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/crazymichel
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=crazyyyisen.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/crazyyyisen.tar
+CND_PACKAGE_NAME_Debug=crazymichel.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/crazymichel.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=crazyyyisen
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/crazyyyisen
+CND_ARTIFACT_NAME_Release=crazymichel
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/crazymichel
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=crazyyyisen.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/crazyyyisen.tar
+CND_PACKAGE_NAME_Release=crazymichel.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/crazymichel.tar
 #
 # include compiler specific variables
 #

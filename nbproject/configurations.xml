@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="84">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -13,7 +13,11 @@
       <itemPath>AsyncState.h</itemPath>
       <itemPath>CrazyContainer.h</itemPath>
       <itemPath>FLContainer.h</itemPath>
+      <itemPath>Integrator.h</itemPath>
+      <itemPath>MartinsIntegrator.h</itemPath>
       <itemPath>MyWindow.h</itemPath>
+      <itemPath>PIDCorrector.h</itemPath>
+      <itemPath>gnuplot-iostream.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -29,7 +33,10 @@
       <itemPath>CTOC.cpp</itemPath>
       <itemPath>CrazyContainer.cpp</itemPath>
       <itemPath>FLContainer.cpp</itemPath>
+      <itemPath>Integrator.cpp</itemPath>
+      <itemPath>MartinsIntegrator.cpp</itemPath>
       <itemPath>MyWindow.cpp</itemPath>
+      <itemPath>PIDCorrector.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -48,9 +55,8 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -64,7 +70,6 @@
         </ccTool>
         <linkerTool>
           <linkerLibItems>
-            <linkerOptionItem>`pkg-config --libs libusb-1.0`</linkerOptionItem>
             <linkerLibLibItem>fltk</linkerLibLibItem>
             <linkerLibLibItem>fltk_forms</linkerLibLibItem>
             <linkerLibLibItem>fltk_gl</linkerLibLibItem>
@@ -74,50 +79,15 @@
             <linkerLibLibItem>fltk_z</linkerLibLibItem>
             <linkerOptionItem>-ldl -lm -lXext -lX11</linkerOptionItem>
             <linkerOptionItem>-std=c++0x</linkerOptionItem>
-            <linkerOptionItem>`pkg-config --libs libxml-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libusb-1.0`</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="AsyncState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="AsyncState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CCRTPPacket.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CCrazyRadio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CCrazyRadio.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CCrazyflie.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CTOC.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CrazyContainer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CrazyContainer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="FLContainer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="FLContainer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MyWindow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="MyWindow.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="cflie/CCRTPPacket.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="cflie/CCrazyflie.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="cflie/CTOC.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -133,40 +103,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="AsyncState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="AsyncState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CCRTPPacket.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CCrazyRadio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CCrazyRadio.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CCrazyflie.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CTOC.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CrazyContainer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="CrazyContainer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="FLContainer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="FLContainer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MyWindow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="MyWindow.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="cflie/CCRTPPacket.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="cflie/CCrazyflie.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="cflie/CTOC.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

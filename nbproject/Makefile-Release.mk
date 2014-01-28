@@ -35,15 +35,18 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/AsyncState.o \
-	${OBJECTDIR}/CCRTPPacket.o \
-	${OBJECTDIR}/CCrazyRadio.o \
-	${OBJECTDIR}/CCrazyflie.o \
 	${OBJECTDIR}/CTOC.o \
+	${OBJECTDIR}/CCrazyflie.o \
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/CrazyContainer.o \
-	${OBJECTDIR}/FLContainer.o \
+	${OBJECTDIR}/MartinsIntegrator.o \
 	${OBJECTDIR}/MyWindow.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/AsyncState.o \
+	${OBJECTDIR}/Integrator.o \
+	${OBJECTDIR}/PIDCorrector.o \
+	${OBJECTDIR}/FLContainer.o \
+	${OBJECTDIR}/CCrazyRadio.o \
+	${OBJECTDIR}/CCRTPPacket.o
 
 
 # C Compiler Flags
@@ -64,56 +67,71 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazyyyisen
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazymichel
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazyyyisen: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazymichel: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazyyyisen ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/AsyncState.o: AsyncState.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AsyncState.o AsyncState.cpp
-
-${OBJECTDIR}/CCRTPPacket.o: CCRTPPacket.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CCRTPPacket.o CCRTPPacket.cpp
-
-${OBJECTDIR}/CCrazyRadio.o: CCrazyRadio.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CCrazyRadio.o CCrazyRadio.cpp
-
-${OBJECTDIR}/CCrazyflie.o: CCrazyflie.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CCrazyflie.o CCrazyflie.cpp
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazymichel ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/CTOC.o: CTOC.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CTOC.o CTOC.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CTOC.o CTOC.cpp
 
-${OBJECTDIR}/CrazyContainer.o: CrazyContainer.cpp 
+${OBJECTDIR}/CCrazyflie.o: CCrazyflie.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CrazyContainer.o CrazyContainer.cpp
-
-${OBJECTDIR}/FLContainer.o: FLContainer.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FLContainer.o FLContainer.cpp
-
-${OBJECTDIR}/MyWindow.o: MyWindow.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MyWindow.o MyWindow.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CCrazyflie.o CCrazyflie.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/CrazyContainer.o: CrazyContainer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CrazyContainer.o CrazyContainer.cpp
+
+${OBJECTDIR}/MartinsIntegrator.o: MartinsIntegrator.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/MartinsIntegrator.o MartinsIntegrator.cpp
+
+${OBJECTDIR}/MyWindow.o: MyWindow.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/MyWindow.o MyWindow.cpp
+
+${OBJECTDIR}/AsyncState.o: AsyncState.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/AsyncState.o AsyncState.cpp
+
+${OBJECTDIR}/Integrator.o: Integrator.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Integrator.o Integrator.cpp
+
+${OBJECTDIR}/PIDCorrector.o: PIDCorrector.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/PIDCorrector.o PIDCorrector.cpp
+
+${OBJECTDIR}/FLContainer.o: FLContainer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/FLContainer.o FLContainer.cpp
+
+${OBJECTDIR}/CCrazyRadio.o: CCrazyRadio.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CCrazyRadio.o CCrazyRadio.cpp
+
+${OBJECTDIR}/CCRTPPacket.o: CCRTPPacket.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CCRTPPacket.o CCRTPPacket.cpp
 
 # Subprojects
 .build-subprojects:
@@ -121,7 +139,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazyyyisen
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/crazymichel
 
 # Subprojects
 .clean-subprojects:
