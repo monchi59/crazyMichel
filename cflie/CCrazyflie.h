@@ -119,6 +119,7 @@ class CCrazyflie {
   void enableStabilizerLogging();
   void enableGyroscopeLogging();
   void enableAccelerometerLogging();
+  void enableProxLogging();
 
   void disableStabilizerLogging();
   void disableGyroscopeLogging();
@@ -136,6 +137,7 @@ class CCrazyflie {
   void enableAltimeterLogging();
   void disableAltimeterLogging();
 
+  
   double currentTime();
 
  public:
@@ -294,6 +296,8 @@ class CCrazyflie {
   float magX();
   float magY();
   float magZ();
+  
+  float prox();
 
 };
 
